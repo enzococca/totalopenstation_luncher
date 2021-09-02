@@ -47,6 +47,9 @@ else:
 # install pip if it is not found
 
 for p in packages:
-    
-    subprocess.check_call(['python','-m','pip', 'install',  p ], shell=True)
-    
+    try:
+        subprocess.check_call(['python','-m','pip', 'install',  p ], shell=True)
+    except:
+        pass
+    else:
+        subprocess.check_call([cmd,'-m','pip', 'install',  p ], shell=False)
