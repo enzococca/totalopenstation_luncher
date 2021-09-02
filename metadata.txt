@@ -5,7 +5,7 @@
 [general]
 name=Total Open Station
 qgisMinimumVersion=3.0
-description=Total Open Station (TOPS for friends) is a free software program for downloading and processing data from total station devices.
+description=Total Open Station (TOPS for friends) is a free software program for downloading and processing data from total station devices. This one is a plugin to connect with totalopenstation software developed as part of the IOSA project by Stefano Costa and Luca Bianconi, archaeologists.
 version=0.1
 author=Enzo Cocca adArte srl; Stefano Costa
 email=enzo.ccc@gmail.com
@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-# plugin_dependencies=
+plugin_dependencies=totalopenstation
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=
