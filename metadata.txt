@@ -20,7 +20,7 @@ repository=https://github.com/enzococca/totalopenstation_luncher
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=1.0
+changelog=2.1
 
 # Tags are comma separated with spaces allowed
 tags=python, totalstation
@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-plugin_dependencies=totalopenstation, python-tcltk(from osgeo-setup for Windows) or python-tk (from apt-get for Linux&Mac)
+# plugin_dependencies=totalopenstation, python-tcltk(from osgeo-setup for Windows) or python-tk (from apt-get for Linux&Mac)
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=
