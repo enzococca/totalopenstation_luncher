@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-plugin_dependencies=totalopenstation
+plugin_dependencies=totalopenstation, python-tcltk(from osgeo-setup for Windows) or python-tk (from apt-get for Linux&Mac)
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=

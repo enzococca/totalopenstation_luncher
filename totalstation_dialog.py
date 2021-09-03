@@ -60,4 +60,10 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
         if platform.system() == "Windows":
             b=QgsApplication.qgisSettingsDirPath().replace("/","\\")
             cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalstation', 'scripts', 'totalopenstation-gui.py')
-            os.system("start cmd /k" + ' python ' +cmd)
+            #os.system("start cmd /k" + ' python ' +cmd)
+            subprocess.call(['python', cmd], shell=True)
+            
+        else:
+            cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalstation', 'scripts', 'totalopenstation-gui.py')
+            #os.system("start cmd /k" + ' python ' +cmd)
+            subprocess.call(['python', cmd], shell=True)
