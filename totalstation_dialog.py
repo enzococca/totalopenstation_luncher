@@ -57,6 +57,17 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
     
     
     def on_pushButton_connect_pressed(self):
+        try:
+            import tkinter
+        except:
+            if platform.system() == "Windows":
+                QMessageBox.warning(self, 'TotalOpenStation',
+                                  "missing tck/tk\n\n"
+                                  "install python-tcltk via osgeo4w-setup ", QMessageBox.Ok)
+            else:
+                QMessageBox.warning(self, 'TotalOpenStation',
+                                  "missing tck/tk\n\n"
+                                  "install python-tk via apt-get", QMessageBox.Ok)
         if platform.system() == "Windows":
             b=QgsApplication.qgisSettingsDirPath().replace("/","\\")
             cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalstation', 'scripts', 'totalopenstation-gui.py')
