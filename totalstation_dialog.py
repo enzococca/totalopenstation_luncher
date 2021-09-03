@@ -61,11 +61,11 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
             import tkinter
         except:
             if platform.system() == "Windows":
-                QMessageBox.warning(self, 'TotalOpenStation',
+                QMessageBox.warning(self, 'Total Open Station luncher',
                                   "missing tck/tk\n\n"
                                   "install python-tcltk via osgeo4w-setup ", QMessageBox.Ok)
             else:
-                QMessageBox.warning(self, 'TotalOpenStation',
+                QMessageBox.warning(self, 'Total Open Station luncher',
                                   "missing tck/tk\n\n"
                                   "install python-tk via apt-get", QMessageBox.Ok)
         if platform.system() == "Windows":
