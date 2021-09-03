@@ -12,8 +12,8 @@ email=enzo.ccc@gmail.com
 
 about=Total Open Station (TOPS for friends) is a free software program for downloading and processing data from total station devices. This is a task which is usually done by proprietary, dedicated and Windows™-only software, but TOPS is different by nature, because: it is free software released under the GNU GPLv3 license; it works on any operating system; it is designed to support as many devices and formats as possible, all within the same program, opposed to having one program per device. Every model has its own quirks, but TOPS uses a modular structure and keeps the downloading of data logically separated from its processing, thus enabling exporting data to a variety of output formats, even at a later moment. Archiving of raw data is made easy by using plain text files. Users of Total Open Station are a growing number, you can be the next. See which Models are already supported.
 
-tracker=https://github.com/enzococca/totalstation
-repository=https://github.com/enzococca/totalstation
+tracker=https://github.com/enzococca/totalopenstation_luncher
+repository=https://github.com/enzococca/totalopenstation_luncher
 # End of mandatory metadata
 
 # Recommended items:
