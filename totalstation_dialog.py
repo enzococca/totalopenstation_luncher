@@ -60,6 +60,7 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
         try:
             import tkinter
         except:
+            
             if platform.system() == "Windows":
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                   "missing tck/tk\n\n"
@@ -70,11 +71,11 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
                                   "install python-tk via apt-get", QMessageBox.Ok)
         if platform.system() == "Windows":
             b=QgsApplication.qgisSettingsDirPath().replace("/","\\")
-            cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalstation', 'scripts', 'totalopenstation-gui.py')
+            cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalopenstation_luncher-master', 'scripts', 'totalopenstation-gui.py')
             #os.system("start cmd /k" + ' python ' +cmd)
             subprocess.call(['python', cmd], shell=True)
             
         else:
-            cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalstation', 'scripts', 'totalopenstation-gui.py')
+            cmd = os.path.join(os.sep, b , 'python', 'plugins', 'totalopenstation_luncher-master', 'scripts', 'totalopenstation-gui.py')
             #os.system("start cmd /k" + ' python ' +cmd)
             subprocess.call(['python', cmd], shell=True)
