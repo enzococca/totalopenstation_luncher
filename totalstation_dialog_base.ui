@@ -331,7 +331,7 @@
           <bool>true</bool>
          </property>
          <property name="currentText">
-          <string>insert port</string>
+          <string/>
          </property>
          <item>
           <property name="text">
@@ -580,54 +580,5 @@
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>TotalopenstationDialogBase</sender>
-   <signal>rejected()</signal>
-   <receiver>textEdit</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>199</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>247</x>
-     <y>512</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>TotalopenstationDialogBase</sender>
-   <signal>rejected()</signal>
-   <receiver>lineEdit_input</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>326</x>
-     <y>12</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>310</x>
-     <y>91</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>TotalopenstationDialogBase</sender>
-   <signal>rejected()</signal>
-   <receiver>lineEdit_output</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>378</x>
-     <y>9</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>311</x>
-     <y>153</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
