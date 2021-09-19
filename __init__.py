@@ -50,15 +50,13 @@ if install_libraries:
     from qgis.PyQt.QtWidgets import QMessageBox
     if L=='it':
         res = QMessageBox.warning(None, 'Total Open Station luncher',
-                              "Se vedete questo messaggio significa che il pacchetto totalopenstation dalla vostra macchina:\n{}\n\n"
-                              "Vuoi installarlo? Ricordate che è necessario avviare QGIS come Admin".format(
-                                  ',\n'.join(missing_libraries)), QMessageBox.Ok | QMessageBox.Cancel)
+                              "Se vedi questo messaggio significa che il pacchetto totalopenstation non è installato:\n\n"
+                              "Vuoi installarlo? Ricordati che se hai installato QGIS standalone è necessario avviare QGIS come Admin", QMessageBox.Ok | QMessageBox.Cancel)
     
     else:
         res = QMessageBox.warning(None, 'Total Open Station luncher',
-                              "If you see this message it means the required package totalopenstation is missing from your machine:\n{}\n\n"
-                              "Do you want install the missing package? Remember you need start QGIS like Admin".format(
-                                  ',\n'.join(missing_libraries)), QMessageBox.Ok | QMessageBox.Cancel)
+                              "If you see this message it means the required package totalopenstation is missing from your machine:\n\n"
+                              "Do you want install the missing package? Remember you need start QGIS like Admin", QMessageBox.Ok | QMessageBox.Cancel)
     if res == QMessageBox.Ok:
         
 
