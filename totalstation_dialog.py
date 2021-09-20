@@ -26,8 +26,10 @@ import os
 import sys
 import subprocess
 import platform
-from qgis.PyQt import uic
-from qgis.PyQt.QtGui import QDesktopServices
+import csv
+import tempfile
+from qgis.PyQt import *
+from qgis.PyQt.QtGui import *
 from qgis.PyQt.QtCore import  pyqtSlot, pyqtSignal,QThread,QUrl,QSettings,Qt
 from qgis.PyQt.QtWidgets import QApplication, QDialog, QMessageBox, QFileDialog,QLineEdit,QWidget,QCheckBox
 from qgis.PyQt.QtSql import *
@@ -55,6 +57,8 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+        self.model = QtGui.QStandardItemModel(self)
+        self.tableView.setModel(self.model)
         self.toolButton_input.clicked.connect(self.setPathinput)
         self.toolButton_output.clicked.connect(self.setPathoutput)
         self.toolButton_save_raw.clicked.connect(self.setPathsaveraw)
@@ -103,9 +107,9 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
 
             self.lineEdit_input.setText(input_)
             s.setValue('',input_)
-            r=open(self.lineEdit_input.text(),'r')
-            lines = r.read().split(',')
-            self.textEdit.setText(str(lines))
+            # r=open(self.lineEdit_input.text(),'r')
+            # lines = r.read().split(',')
+            # self.textEdit.setText(str(lines))
     
     
     
@@ -122,20 +126,31 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
 
             self.lineEdit_output.setText(output_)
             s.setValue('',output_)
-    
+            
     def setPathsaveraw(self):
         s = QgsSettings()
         output_ = QFileDialog.getSaveFileName(
             self,
             "Set file name",
             '',
-            "(*.tops)"
+            "(*.csv)"
         )[0]
         #filename=dbpath.split("/")[-1]
         if output_:
 
             self.lineEdit_save_raw.setText(output_)
             s.setValue('',output_)
+    
+    def loadCsv(self, fileName):
+        self.tableView.clearSpans()
+        with open(fileName, "r") as fileInput:
+            for row in csv.reader(fileInput):    
+                items = [
+                    QtGui.QStandardItem(field)
+                    for field in row
+                ]
+                self.model.appendRow(items)
+    
     
     
     def on_pushButton_export_pressed(self):
@@ -162,6 +177,11 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                           'data loaded into panel Layer', QMessageBox.Ok)
             
+                
+                temp=tempfile.mkstemp(suffix = '.csv')
+                QgsVectorFileWriter.writeAsVectorFormat(layer, 'test.csv', "utf-8", driverName = "CSV")
+                
+                self.loadCsv('test.csv')
             elif self.comboBox_format2.currentIndex()== 1:
                 
                 layer = QgsVectorLayer(self.lineEdit_output.text(), 'totalopenstation', 'ogr')
@@ -173,6 +193,10 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                           'data loaded into panel Layer', QMessageBox.Ok)
+                                          
+                temp=tempfile.mkstemp(suffix = '.csv')
+                QgsVectorFileWriter.writeAsVectorFormat(layer, 'test.csv', "utf-8", driverName = "CSV")
+                self.loadCsv('test.csv')                     
             
             elif self.comboBox_format2.currentIndex()== 2:
                 uri = "file:///"+self.lineEdit_output.text()+"?type=csv&xField=x&yField=y&spatialIndex=no&subsetIndex=no&watchFile=no"
@@ -187,7 +211,9 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
                                           'data loaded into panel Layer', QMessageBox.Ok)
             
 
-
+                self.loadCsv(self.lineEdit_output.text())
+                
+                
 
             
             else:
@@ -199,20 +225,22 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
             #os.system("start cmd /k" + ' python ' +cmd+' '+cmd2)
             subprocess.check_call(['python',cmd, '-i',self.lineEdit_input.text(),'-o',self.lineEdit_output.text(),'-f',self.comboBox_format.currentText(),'-t',self.comboBox_format2.currentText(),'--overwrite'], shell=True)
             
-            # Load the layer if the format is geojson or dxf            
+            #Load the layer if the format is geojson or dxf or csv           
             if self.comboBox_format2.currentIndex()== 0:
                 
                 layer = QgsVectorLayer(self.lineEdit_output.text(), 'totalopenstation', 'ogr')
-                # Convert GeoJSON to SHP
                 
                 layer.isValid() 
 
-                
                 QgsProject.instance().addMapLayer(layer)
 
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                           'data loaded into panel Layer', QMessageBox.Ok)
             
+            
+                r=open(self.lineEdit_output.text(),'r')
+                lines = r.read().split(',')
+                self.textEdit.setText(str(lines))
             elif self.comboBox_format2.currentIndex()== 1:
                 
                 layer = QgsVectorLayer(self.lineEdit_output.text(), 'totalopenstation', 'ogr')
@@ -224,21 +252,34 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                           'data loaded into panel Layer', QMessageBox.Ok)
+                                          
+                r=open(self.lineEdit_output.text(),'r')
+                lines = r.read().split(',')
+                self.textEdit.setText(str(lines))                          
             
             elif self.comboBox_format2.currentIndex()== 2:
-                uri = self.lineEdit_output.text()+"?type=csv&xField=x&yField=y&spatialIndex=no&subsetIndex=no&watchFile=no"
+                uri = "file:///"+self.lineEdit_output.text()+"?type=csv&xField=x&yField=y&spatialIndex=no&subsetIndex=no&watchFile=no"
                 layer = QgsVectorLayer(uri, 'totalopenstation', "delimitedtext")
                 
                 layer.isValid() 
 
+                
                 QgsProject.instance().addMapLayer(layer)
 
                 QMessageBox.warning(self, 'Total Open Station luncher',
                                           'data loaded into panel Layer', QMessageBox.Ok)
             
 
+                self.loadCsv(self.lineEdit_output.text())
+                
+                
+
+            
             else:
                 pass
+    
+    
+        
     def on_pushButton_connect_pressed(self):
         try:
             
@@ -273,9 +314,9 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
                                           'data loaded into panel Layer', QMessageBox.Ok)
             
             
-            r=open(self.lineEdit_save_raw.text(),'r')
-            lines = r.read().split(',')
-            self.textEdit.setText(str(lines))
+            
+            self.loadCsv(self.lineEdit_save_raw.text())
+            
         
         except:
             pass
