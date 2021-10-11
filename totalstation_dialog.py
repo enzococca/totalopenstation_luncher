@@ -62,15 +62,15 @@ class TotalopenstationDialog(QtWidgets.QDialog, FORM_CLASS):
         self.toolButton_input.clicked.connect(self.setPathinput)
         self.toolButton_output.clicked.connect(self.setPathoutput)
         self.toolButton_save_raw.clicked.connect(self.setPathsaveraw)
-        self.mDockWidget.setHidden(True)
+        self.mSerialSettingsGroup.setHidden(True)
         self.comboBox_model.currentIndexChanged.connect(self.tt)
     def tt(self):    
         if self.comboBox_model.currentIndex()!=6:
             
-            self.mDockWidget.setHidden(True)
+            self.mSerialSettingsGroup.setHidden(True)
         else:
             
-            self.mDockWidget.show()
+            self.mSerialSettingsGroup.show()
         #self.format_()
     
     # def format_(self):
